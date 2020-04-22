@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-
+import re
 
 def parse_NYT(page):
     soup = BeautifulSoup(page, 'html.parser')
@@ -13,6 +13,10 @@ def parse_NYT(page):
     hl = soup.find("h1", itemprop="headline")
     article_props["headline"] = hl.get_text(strip=True)
 
+    # get the date
+    date = soup.find("time", {'datetime': re.compile(r'.*')})
+    article_props["date"] = date.get_text(strip=True)
+
     # get the body
     body_sec = soup.find("section", itemprop="articleBody")
     p = body_sec.findChildren("p", recursive=True)
@@ -23,9 +27,10 @@ def parse_NYT(page):
     article_text = article_text.strip() # eliminate all white space
     article_props["body"] = article_text
 
-    # get the subtext
+    # get the subtext if it exists
     summary = soup.find("p", id="article-summary")
     if summary:
         article_props["summary"] = summary.get_text(strip=True)
 
     return article_props
+
