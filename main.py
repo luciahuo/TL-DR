@@ -1,7 +1,7 @@
 # file with the basic parsing and I/O functionality
 import argparse
 import requests
-from parser import parse_NYT
+from our_parser import parse_NYT
 from analyze import get_keywords
 
 
