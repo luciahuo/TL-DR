@@ -3,11 +3,13 @@ af = Afinn()
 
 
 def analyzeSentiment(text):
-    score = af.score(text)
-    sentimentText = "neutral"
-    if score > 0.5:
-        sentimentText = "positive"
-    elif score < 0.5:
-        sentimentText = "negative"
+    totalSentiment = af.score(text)
+    wordList = text.split()
+    avgWordSentiment = totalSentiment / len(wordList)
 
-    return [score, sentimentText]
+    sentimentText = "neutral"
+    if avgWordSentiment > 0.2:
+        sentimentText = "positive"
+    elif avgWordSentiment < -0.2:
+        sentimentText = "negative"
+    return [totalSentiment, sentimentText, avgWordSentiment]
