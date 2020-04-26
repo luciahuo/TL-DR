@@ -3,21 +3,12 @@ import argparse
 import requests
 from our_parser import parse_NYT
 from analyze import get_keywords
-<<<<<<< HEAD
-import sentiment
-import translator
-
-# visualizer stuff
-# will need to 'pip3 install matplotlib'
-import matplotlib.pyplot as plt
-=======
 from archive import write_articles_to_file
 from analyze import get_topics
 from visualize import visualize_wordcloud
 from visualize import visualize_sentiment
 import sentiment
 import translator
->>>>>>> merging
 
 
 def parse_args():
@@ -25,11 +16,8 @@ def parse_args():
     parser.add_argument('-url', help='the news article url', type=str)
     parser.add_argument('-filename', help='the filename that contains the news article urls', type=str)
     parser.add_argument('-language', help='language to translate to (Spanish, German, French, Chinese, Japanese, etc)', type=str)
-<<<<<<< HEAD
-=======
     parser.add_argument('-save', help='the directory in which a tl;dr file will be saved', nargs='?', const=" ", type=str)
     parser.add_argument('-v','--visualize', help="visualize data of all articles, 0: word cloud | 1: sentiment graph", nargs=1, type=int, choices=range(0, 2))
->>>>>>> merging
     args = parser.parse_args()
     return args
 
