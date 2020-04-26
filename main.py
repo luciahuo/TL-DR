@@ -60,6 +60,13 @@ if __name__ == '__main__':
     # translation data
     translations = []
 
+    #saves to appropriate files in folder
+    if args.save:
+        if args.save == " ":
+            write_articles_to_file(props_arr)
+        else:
+            write_articles_to_file(props_arr, "/" + args.save) 
+
     for article in props_arr:
         # each element is [totalSentiment (number), avgWordSentiment (number), sentimentDescription (string)]
         mainSentimentData.append(sentiment.analyzeSentiment(article['body']))
@@ -71,7 +78,7 @@ if __name__ == '__main__':
         for sentence in sentencesSentiment[-1]:
             sentencesGraphData.append(sentence[1])
 
-        if args.visualize and args.visualize[0] == 1:
+        if args.visualize and (args.visualize[0] == 1 or args.visualize[0] == 2):
             if args.save and args.save != " ":
                 visualize_sentiment(sentencesGraphData, article, "/" + args.save)
             else:
@@ -89,13 +96,6 @@ if __name__ == '__main__':
     #topic matches - prints suggested topics to look into
     if args.topic and not args.url:
         get_topics(all_text)
-
-    #saves to appropriate files in folder
-    if args.save:
-        if args.save == " ":
-            write_articles_to_file(props_arr)
-        else:
-            write_articles_to_file(props_arr, "/" + args.save) 
 
     #visualizes wordcloud
     if args.visualize:

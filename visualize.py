@@ -31,6 +31,8 @@ def visualize_sentiment(sentencesGraphData, article, dir=None):
     plt.title('[SENTIMENT] ' + article['headline'] + " by " + article['author'])
     # save the plot into the correct place (NEEDS TO BE CHANGED FOR CORRECT FILE PLACEMENT)
     if dir is not None:
-        plt.savefig(dir + "/temp-" + article['headline'], dpi=196, facecolor='w', edgecolor='w',
+        filepath = os.path.join(parent_dir, "My_TLDR_Archive") + dir
+        plt.savefig(filepath + "/temp-" + article['headline'], dpi=196, facecolor='w', edgecolor='w',
             orientation='portrait', papertype=None, format=None,
             transparent=False, bbox_inches='tight', pad_inches=0.5, metadata=None)
+    plt.show()
