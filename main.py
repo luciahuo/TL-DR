@@ -56,7 +56,7 @@ if __name__ == '__main__':
     sentencesSentiment = []
     # translation data
     translations = []
-
+    # do sentiment and translation stuff for each article
     for article in props_arr:
         # each element is [totalSentiment (number), avgWordSentiment (number), sentimentDescription (string)]
         mainSentimentData.append(sentiment.analyzeSentiment(article['body']))
