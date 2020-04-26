@@ -17,7 +17,7 @@ def visualize_wordcloud(text, dir=""):
         plt.savefig(filename + "/wordcloud.png")
     plt.show()
     
-#creates sentiment of time grahph for a particlular article
+#creates sentiment of time graph for a particlular article
 def visualize_sentiment(sentencesGraphData, article, dir=None):
     plt.figure()
     plt.plot(sentencesGraphData)
