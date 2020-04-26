@@ -39,6 +39,7 @@ def getSentencesSentiment(text):
     # clean sentences and perform sentiment analysis
     sentenceSentiments = []
     for sentence in sentenceList:
+        # clean sentence
         sentenceClean = sentence.lower()
         sentenceClean = re.sub("[^a-zA-Z0-9\s]", "", sentenceClean)
         # only add to analysis if the sentence is of length greater than 0
