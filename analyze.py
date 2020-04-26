@@ -40,7 +40,6 @@ def get_topics(texts):
     # get rid of stop-words
     tokenized_doc = tokenized_doc.apply(lambda x: [token for token in x if token not in stop_words])
     num = max(len(texts) // 2, 1)
-    print(num)
 
     # convert tokens back to doc
     detokenized_doc = []

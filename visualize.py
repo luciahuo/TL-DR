@@ -7,12 +7,12 @@ from pathlib import Path
 parent_dir = str(Path(__file__).resolve().parents[0])
 
 #creastes word cloud from text
-def visualize_wordcloud(text, dir=""):
+def visualize_wordcloud(text, dir=None):
     wordcloud = WordCloud(max_font_size=70, max_words=100, background_color="white").generate(text)
     plt.figure()
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
-    if dir != "":
+    if dir is not None:
         filename = os.path.join(parent_dir, "My_TLDR_Archive") + dir
         plt.savefig(filename + "/wordcloud.png")
     plt.show()

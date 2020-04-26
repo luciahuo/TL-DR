@@ -16,8 +16,9 @@ def parse_args():
     parser.add_argument('-url', help='the news article url', type=str)
     parser.add_argument('-filename', help='the filename that contains the news article urls', type=str)
     parser.add_argument('-language', help='language to translate to (Spanish, German, French, Chinese, Japanese, etc)', type=str)
+    parser.add_argument('-topic', help='option to suggest topics in which user may be interested', action='store_true')
     parser.add_argument('-save', help='the directory in which a tl;dr file will be saved', nargs='?', const=" ", type=str)
-    parser.add_argument('-v','--visualize', help="visualize data of all articles, 0: word cloud | 1: sentiment graph", nargs=1, type=int, choices=range(0, 2))
+    parser.add_argument('-v','--visualize', help="visualize data of all articles, 0: word cloud | 1: sentiment graph | 2: both", nargs=1, type=int, choices=range(0, 3))
     args = parser.parse_args()
     return args
 
@@ -35,7 +36,7 @@ def get_html_from_file(filename):
         lines = f.readlines()
         covers = []
         for l in lines:
-            if 'http' not in l and not l.strip(): #ignores lines with only whitespace
+            if 'http' not in l and l.strip(): #ignores lines with only whitespace
                 l = "https://" + l.strip()
             covers.append(requests.get(l).content)
         f.close()
@@ -80,13 +81,13 @@ if __name__ == '__main__':
         if args.language:
             print("what")
             print(args.language)
-            translations.append(args.langauge, translator.translateText(article['body']))
+            translations.append(translator.translateText(args.language, article['body']))
 
     #gets all body text from all documents
     all_text = [ obj['body'] for obj in props_arr]
 
     #topic matches - prints suggested topics to look into
-    if not args.url:
+    if args.topic and not args.url:
         get_topics(all_text)
 
     #saves to appropriate files in folder
@@ -98,9 +99,12 @@ if __name__ == '__main__':
 
     #visualizes wordcloud
     if args.visualize:
-        if args.visualize[0] == 0:
-            if args.save and args.save != " ":
-                visualize_wordcloud(" ".join(all_text), "/" + args.save)
+        if args.visualize[0] % 2== 0:
+            if args.save:
+                if args.save == " ": #did not specify directory --> put directly in archive
+                    visualize_wordcloud(" ".join(all_text), "")
+                else: # put in user-specified directory
+                    visualize_wordcloud(" ".join(all_text), "/" + args.save)
             else:
                 visualize_wordcloud(" ".join(all_text))
 
