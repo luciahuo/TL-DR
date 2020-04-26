@@ -3,12 +3,21 @@ import argparse
 import requests
 from our_parser import parse_NYT
 from analyze import get_keywords
+<<<<<<< HEAD
 import sentiment
 import translator
 
 # visualizer stuff
 # will need to 'pip3 install matplotlib'
 import matplotlib.pyplot as plt
+=======
+from archive import write_articles_to_file
+from analyze import get_topics
+from visualize import visualize_wordcloud
+from visualize import visualize_sentiment
+import sentiment
+import translator
+>>>>>>> merging
 
 
 def parse_args():
@@ -16,6 +25,11 @@ def parse_args():
     parser.add_argument('-url', help='the news article url', type=str)
     parser.add_argument('-filename', help='the filename that contains the news article urls', type=str)
     parser.add_argument('-language', help='language to translate to (Spanish, German, French, Chinese, Japanese, etc)', type=str)
+<<<<<<< HEAD
+=======
+    parser.add_argument('-save', help='the directory in which a tl;dr file will be saved', nargs='?', const=" ", type=str)
+    parser.add_argument('-v','--visualize', help="visualize data of all articles, 0: word cloud | 1: sentiment graph", nargs=1, type=int, choices=range(0, 2))
+>>>>>>> merging
     args = parser.parse_args()
     return args
 
@@ -33,7 +47,7 @@ def get_html_from_file(filename):
         lines = f.readlines()
         covers = []
         for l in lines:
-            if 'http' not in l:
+            if 'http' not in l and not l.strip(): #ignores lines with only whitespace
                 l = "https://" + l.strip()
             covers.append(requests.get(l).content)
         f.close()
@@ -67,23 +81,39 @@ if __name__ == '__main__':
         sentencesGraphData = []
         for sentence in sentencesSentiment[-1]:
             sentencesGraphData.append(sentence[1])
-        plt.figure()
-        plt.plot(sentencesGraphData)
-        plt.xlabel('sentence number') 
-        plt.ylabel('sentence sentiment total')
-        plt.ylim([-10, 10])
-        plt.grid(True)
-        plt.grid(which='major', linestyle='-', linewidth='0.4', color='blue')
-        plt.grid(which='minor', linestyle=':', linewidth='0.2', color='gray')
-        plt.minorticks_on()
-        plt.title('[SENTIMENT] ' + article['headline'] + " by " + article['author'])
-        # save the plot into the correct place (NEEDS TO BE CHANGED FOR CORRECT FILE PLACEMENT)
-        plt.savefig("temp-" + article['headline'], dpi=196, facecolor='w', edgecolor='w',
-            orientation='portrait', papertype=None, format=None,
-            transparent=False, bbox_inches='tight', pad_inches=0.5, metadata=None)
+
+        if args.visualize and args.visualize[0] == 1:
+            if args.save and args.save != " ":
+                visualize_sentiment(sentencesGraphData, article, "/" + args.save)
+            else:
+                visualize_sentiment(sentencesGraphData, article)
         
         # translate
         if args.language:
             print("what")
             print(args.language)
             translations.append(args.langauge, translator.translateText(article['body']))
+
+    #gets all body text from all documents
+    all_text = [ obj['body'] for obj in props_arr]
+
+    #topic matches - prints suggested topics to look into
+    if not args.url:
+        get_topics(all_text)
+
+    #saves to appropriate files in folder
+    if args.save:
+        if args.save == " ":
+            write_articles_to_file(props_arr)
+        else:
+            write_articles_to_file(props_arr, "/" + args.save) 
+
+    #visualizes wordcloud
+    if args.visualize:
+        if args.visualize[0] == 0:
+            if args.save and args.save != " ":
+                visualize_wordcloud(" ".join(all_text), "/" + args.save)
+            else:
+                visualize_wordcloud(" ".join(all_text))
+
+
