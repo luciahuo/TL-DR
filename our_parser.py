@@ -9,7 +9,7 @@ def parse_NYT(pages):
     for p in pages:
         soup = BeautifulSoup(p, 'html.parser')
         article_props = {}
-
+        get_keywords("hey guys this is austin")
         try:
             # get the name
             a = soup.find("span", itemprop="name")

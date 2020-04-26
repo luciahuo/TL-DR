@@ -3,6 +3,7 @@ import argparse
 import requests
 from our_parser import parse_NYT
 from analyze import get_keywords
+import sentiment
 
 
 def parse_args():
@@ -43,4 +44,13 @@ if __name__ == '__main__':
         pages = get_html_from_file(args.filename)
     # array of props for all input articles
     props_arr = parse_NYT(pages)
+
+    # sentiment stuff
+    mainSentimentData = []
+    sentencesSentiment = []
+    for article in props_arr:
+        # each element is [totalSentiment (number), avgWordSentiment (number), sentimentDescription (string)]
+        mainSentimentData.append(sentiment.analyzeSentiment(article['body']))
+        # each element is [sentence (string), sentenceTotalSentiment (number)]
+        sentencesSentiment.append(sentiment.getSentencesSentiment(article['body']))
 
