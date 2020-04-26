@@ -9,13 +9,15 @@ from visualize import visualize_wordcloud
 from visualize import visualize_sentiment
 import sentiment
 import translator
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='a TL;DR news reader for the New York Times')
     parser.add_argument('-url', help='the news article url', type=str)
     parser.add_argument('-filename', help='the filename that contains the news article urls', type=str)
-    parser.add_argument('-language', help='language to translate to (Spanish, German, French, Chinese, Japanese, etc)', type=str)
+    parser.add_argument('-language', help='language suffix to translate to (ja : Japanese, fr : French, gr : German, es: Spanish)', type=str)
     parser.add_argument('-topic', help='option to suggest topics in which user may be interested', action='store_true')
     parser.add_argument('-save', help='the directory in which a tl;dr file will be saved', nargs='?', const=" ", type=str)
     parser.add_argument('-v','--visualize', help="visualize data of all articles, 0: word cloud | 1: sentiment graph | 2: both", nargs=1, type=int, choices=range(0, 3))
@@ -84,11 +86,20 @@ if __name__ == '__main__':
             else:
                 visualize_sentiment(sentencesGraphData, article)
         
+        pp.pprint(article['headline'])
+        pp.pprint("By: " + article['author'])
+        pp.pprint(article['body'])
+
         # translate
         if args.language:
-            print("what")
-            print(args.language)
             translations.append(translator.translateText(args.language, article['body']))
+            pp.pprint("Translation to " + args.language + ":")
+            pp.pprint(translations[-1])
+        
+        # print sentiment last
+        pp.pprint("Total AFINN sentiment: " + str(mainSentimentData[-1][0]))
+        pp.pprint("Average word AFINN sentiment: " + str(mainSentimentData[-1][1]))
+        pp.pprint("Overall this article has " + str(mainSentimentData[-1][2]) + " sentiment")
 
     #gets all body text from all documents
     all_text = [ obj['body'] for obj in props_arr]

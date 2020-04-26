@@ -2,6 +2,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import re
 from pathlib import Path
 
 parent_dir = str(Path(__file__).resolve().parents[0])
@@ -32,7 +33,7 @@ def visualize_sentiment(sentencesGraphData, article, dir=None):
     # save the plot into the correct place (NEEDS TO BE CHANGED FOR CORRECT FILE PLACEMENT)
     if dir is not None:
         filepath = os.path.join(parent_dir, "My_TLDR_Archive") + dir
-        plt.savefig(filepath + "/temp-" + article['headline'], dpi=196, facecolor='w', edgecolor='w',
+        plt.savefig(filepath + "/temp" + re.sub("[^a-zA-Z0-9]", "", article['headline']), dpi=196, facecolor='w', edgecolor='w',
             orientation='portrait', papertype=None, format=None,
             transparent=False, bbox_inches='tight', pad_inches=0.5, metadata=None)
     plt.show()
