@@ -10,6 +10,7 @@ from visualize import visualize_sentiment
 import sentiment
 import translator
 import pprint
+import re
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -49,6 +50,9 @@ if __name__ == '__main__':
     args = parse_args()
     pages = []
     if args.url:
+        args.url = re.sub("\"", "", args.url)
+        if 'http' not in args.url and args.url.strip(): #ignores lines with only whitespace
+            args.url = "https://" + args.url.strip()
         url = args.url
         pages = get_html(url)
     else:
