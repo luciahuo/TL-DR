@@ -19,9 +19,9 @@ def analyzeSentiment(text):
 
     # create text description of the average sentiment value
     sentimentDescription = "neutral"
-    if avgWordSentiment > 0.2:
+    if avgWordSentiment > 0.05:
         sentimentDescription = "positive"
-    elif avgWordSentiment < -0.2:
+    elif avgWordSentiment < -0.05:
         sentimentDescription = "negative"
 
     # return array
