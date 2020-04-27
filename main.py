@@ -11,6 +11,7 @@ import sentiment
 import translator
 import pprint
 import re
+import sys
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -55,8 +56,11 @@ if __name__ == '__main__':
             args.url = "https://" + args.url.strip()
         url = args.url
         pages = get_html(url)
-    else:
+    elif args.filename:
         pages = get_html_from_file(args.filename)
+    else:
+        print("need either url or filename")
+        sys.exit()
     # array of props for all input articles
     props_arr = parse_NYT(pages)
 
