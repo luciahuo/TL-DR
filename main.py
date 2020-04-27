@@ -89,7 +89,6 @@ if __name__ == '__main__':
         pp.pprint(article['headline'])
         pp.pprint("By: " + article['author'])
         pp.pprint(article['body'])
-
         # translate
         if args.language:
             translations.append(translator.translateText(args.language, article['body']))
@@ -100,6 +99,7 @@ if __name__ == '__main__':
         pp.pprint("Total AFINN sentiment: " + str(mainSentimentData[-1][0]))
         pp.pprint("Average word AFINN sentiment: " + str(mainSentimentData[-1][1]))
         pp.pprint("Overall this article has " + str(mainSentimentData[-1][2]) + " sentiment")
+        pp.pprint(" ")
 
     #gets all body text from all documents
     all_text = [ obj['body'] for obj in props_arr]

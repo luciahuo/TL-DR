@@ -11,7 +11,7 @@ def write_articles_to_file(articles, dir=""): #directory optional - passed in th
     
     #get current time for file name
     now = datetime.now()
-    date_string = now.strftime("%Y-%m-%d at %H:%M:%S")
+    date_string = now.strftime("%Y-%m-%d at %H-%M-%S")
     if len(dir) != 0:
         os.makedirs(path + dir, exist_ok = True) 
 
