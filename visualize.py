@@ -13,6 +13,8 @@ def visualize_wordcloud(text, dir=None):
     plt.figure()
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
+    
+    #saves image if specified by user
     if dir is not None:
         filename = os.path.join(parent_dir, "My_TLDR_Archive") + dir
         plt.savefig(filename + "/wordcloud.png")
@@ -30,7 +32,8 @@ def visualize_sentiment(sentencesGraphData, article, dir=None):
     plt.grid(which='minor', linestyle=':', linewidth='0.2', color='gray')
     plt.minorticks_on()
     plt.title('[SENTIMENT] ' + article['headline'] + " by " + article['author'])
-    # save the plot into the correct place (NEEDS TO BE CHANGED FOR CORRECT FILE PLACEMENT)
+
+    #saves plot image if specified by user
     if dir is not None:
         filepath = os.path.join(parent_dir, "My_TLDR_Archive") + dir
         
