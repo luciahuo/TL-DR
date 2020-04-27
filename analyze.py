@@ -56,6 +56,7 @@ def get_topics(texts):
 
     terms = vectorizer.get_feature_names()
     topics_list = []
+    
     print("-----Topics you seem to be interested in: -----")
     for i, comp in enumerate(svd_model.components_):
         terms_comp = zip(terms, comp)

@@ -96,6 +96,10 @@ if __name__ == '__main__':
         
         pp.pprint(article['headline'])
         pp.pprint("By: " + article['author'])
+        pp.pprint("Date Published: " + article['date'])
+        pp.pprint("Keywords: " + ", ".join(article['keywords']))
+        if article['summary']:
+            pp.pprint("Summary: " + article['summary'])
         pp.pprint(article['body'])
         # translate
         if args.language:
@@ -118,13 +122,14 @@ if __name__ == '__main__':
 
     #visualizes wordcloud
     if args.visualize:
-        if args.visualize[0] % 2== 0:
+        all_text_string = " ".join(all_text)
+        if args.visualize[0] % 2 == 0:
             if args.save:
                 if args.save == " ": #did not specify directory --> put directly in archive
-                    visualize_wordcloud(" ".join(all_text), "")
+                    visualize_wordcloud(all_text_string, "")
                 else: # put in user-specified directory
-                    visualize_wordcloud(" ".join(all_text), "/" + args.save)
+                    visualize_wordcloud(all_text_string, "/" + args.save)
             else:
-                visualize_wordcloud(" ".join(all_text))
+                visualize_wordcloud(all_text_string)
 
 

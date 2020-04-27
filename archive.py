@@ -19,7 +19,7 @@ def write_articles_to_file(articles, dir=""): #directory optional - passed in th
         #file names indicate date & time processed and order in file if applicable
         new_filename = path + dir + "/TLDR-" + str(idx) + " " + date_string + ".txt" 
 
-        #write all features to txt file for archiving
+        #write all available features to txt file for archiving
         f = open(new_filename, "w")
         f.write("Headline: " + a['headline'])
         f.write("\n\nAuthor: " + a['author'])
