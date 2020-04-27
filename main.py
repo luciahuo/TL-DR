@@ -98,7 +98,7 @@ if __name__ == '__main__':
         pp.pprint("By: " + article['author'])
         pp.pprint("Date Published: " + article['date'])
         pp.pprint("Keywords: " + ", ".join(article['keywords']))
-        if article['summary']:
+        if "summary" in article:
             pp.pprint("Summary: " + article['summary'])
         pp.pprint(article['body'])
         # translate
