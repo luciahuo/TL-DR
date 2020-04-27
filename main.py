@@ -93,7 +93,8 @@ if __name__ == '__main__':
                 visualize_sentiment(sentencesGraphData, article, "/" + args.save)
             else:
                 visualize_sentiment(sentencesGraphData, article)
-        
+                
+        #prints basic attributes of an article
         pp.pprint(article['headline'])
         pp.pprint("By: " + article['author'])
         pp.pprint("Date Published: " + article['date'])
