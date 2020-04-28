@@ -1,6 +1,7 @@
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import datetime
 import os
 import re
 from pathlib import Path
@@ -17,7 +18,9 @@ def visualize_wordcloud(text, dir=None):
     #saves image if specified by user
     if dir is not None:
         filename = os.path.join(parent_dir, "My_TLDR_Archive") + dir
-        plt.savefig(filename + "/wordcloud.png")
+        now = datetime.now()
+        date_string = now.strftime("%Y-%m-%dat%H-%M-%S")
+        plt.savefig(filename + "/wordcloud" + date_string + ".png")
     plt.show()
     
 #creates sentiment of time graph for a particlular article
