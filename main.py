@@ -92,7 +92,7 @@ if __name__ == '__main__':
             if args.save and args.save != " ":
                 visualize_sentiment(sentencesGraphData, article, "/" + args.save)
             else:
-                visualize_sentiment(sentencesGraphData, article)
+                visualize_sentiment(sentencesGraphData, article, "")
                 
         #prints basic attributes of an article
         pp.pprint(article['headline'])
