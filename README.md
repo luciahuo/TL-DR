@@ -1,6 +1,12 @@
 # TL-DR
 This is a Python CLI tool that analyzes New York Times articles and does fundamental text analysis on them, creating visualizations of their data. The purpose of this “TL;DR” tool is to help readers be able to read in an efficient and well-informed manner, as well as provide an archive mechanism for users to be able to save and organize their favourite online content in file form. 
 
+Dependencies (may need to pip3 install): numpy, matplotlib, nltk, pandas, sklearn, googletrans, wordcloud
+may also need to in Python:
+>>>import nltk
+>>>nltk.download('wordnet')
+
+
 TL-DR performs sentiment analysis by default, using AFINN data, but also can perform topic recommendation analysis using the “-topic” tag. AFINN uses a per word ranking between -3 (most negative) and 3 (most positive) to analyze the sentiment of each word. 
 
 The -v or --visualize tags visualize the data of all articles, with parameters 0 creates a wordcloud image for the article, 1 creates a sentence sentiment graph where each sentence is plotted based on its total AFINN sentiment value. Option 2 creates both.
